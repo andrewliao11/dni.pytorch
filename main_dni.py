@@ -2,14 +2,14 @@ import torch
 import torch.nn as nn
 import torchvision.datasets as dsets
 import torchvision.transforms as transforms
+import pickle as pkl
 from torch.autograd import Variable
-import ipdb
 
 # Hyper Parameters 
 input_size = 784
 hidden_size = 256
 num_classes = 10
-num_epochs = 100
+num_epochs = 300
 batch_size = 256
 dni_hidden_size = 1024
 learning_rate = 3e-5
@@ -102,7 +102,6 @@ optimizer_fc1 = torch.optim.Adam(net.fc1.parameters(), lr=learning_rate)
 optimizer_fc2 = torch.optim.Adam(net.fc2.parameters(), lr=learning_rate)
 optimizer = torch.optim.Adam(net.mlp.parameters(), lr=learning_rate)
 grad_optimizer = torch.optim.Adam(net.dni.parameters(), lr=learning_rate)
-
 classificationCriterion = nn.CrossEntropyLoss()
 syntheticCriterion = nn.MSELoss()
 
@@ -120,6 +119,7 @@ def test_model(epoch):
     print('Epoch %d: Accuracy of the network on the 10000 test images: %d %%' % (epoch, perf))
     return perf
 
+stats = dict(grad_loss=[], classify_loss=[])
 # Train the Model
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):  
@@ -159,12 +159,15 @@ for epoch in range(num_epochs):
 
         grad_loss.backward()
         grad_optimizer.step()
-        
+        stats['grad_loss'] = grad_loss.data[0]
+        stats['classify_loss'] = loss.data[0]
         if (i+1) % 100 == 0:
             print ('Epoch [%d/%d], Step [%d/%d], Loss: %.4f, Grad Loss: %.4f' 
                    %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0], grad_loss.data[0]))
 
     if (epoch+1) % 10 == 0:
         perf = test_model(epoch+1)    
-# Save the Model
+
+# Save the Model ans Stats
+pkl.dump(stats, open('stats.pkl', 'w'))
 torch.save(net.state_dict(), 'model.pkl')
