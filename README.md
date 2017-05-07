@@ -15,11 +15,18 @@ The neuron in each layer will automatically produces an error signal(***δa_head
 ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/dni_illustration.png?raw=true)   
 
 ## Usage 
-Right now I just implement the FCN version, which is set as the default network structure 
+Right now I just implement the FCN version, which is set as the default network structure.
+
+Run network with synthetic gradient:
+
 ```python
 python main_dni.py
 ```
 
+Run vanilla network, from [here](https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/03%20-%20Feedforward%20Neural%20Network/main-gpu.py)
+```python
+python main.py
+```
 
 ## Reference
 - Deepmind's [post](https://deepmind.com/blog/decoupled-neural-networks-using-synthetic-gradients/) on Decoupled Neural Interfaces Using Synthetic Gradients
