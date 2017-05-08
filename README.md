@@ -15,6 +15,12 @@ We ofter optimize NN by backpropogation, which is usually implemented in some we
 The neuron in each layer will automatically produces an error signal(***δa_head***) from synthetic-layers and do the optimzation. And how did the error signal generated? Actually, the network still does the backpropogation. While the error signal(***δa***) from the objective function is not used to optimize the neuron in the network, it is used to optimize the error signal(***δa_head***) produced by the synthetic-layer. The following is the illustration from the paper:
 ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/dni_illustration.png?raw=true)   
 
+## Result
+
+| classify loss | gradient loss(log level) |
+|----|----|
+| ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/classify_loss.png?raw=true) | ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/grad_loss.png?raw=true) |
+
 ## Usage 
 Right now I just implement the FCN version, which is set as the default network structure.
 
