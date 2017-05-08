@@ -9,7 +9,7 @@ from torch.autograd import Variable
 input_size = 784
 hidden_size = 256
 num_classes = 10
-num_epochs = 300
+num_epochs = 100
 batch_size = 256
 dni_hidden_size = 1024
 learning_rate = 3e-5
@@ -159,8 +159,8 @@ for epoch in range(num_epochs):
 
         grad_loss.backward()
         grad_optimizer.step()
-        stats['grad_loss'] = grad_loss.data[0]
-        stats['classify_loss'] = loss.data[0]
+        stats['grad_loss'].append(grad_loss.data[0])
+        stats['classify_loss'].append(loss.data[0])
         if (i+1) % 100 == 0:
             print ('Epoch [%d/%d], Step [%d/%d], Loss: %.4f, Grad Loss: %.4f' 
                    %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0], grad_loss.data[0]))

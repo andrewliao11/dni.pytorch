@@ -1,5 +1,6 @@
+**disclaimer**: this code is modified from [pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/03%20-%20Feedforward%20Neural%20Network/main-gpu.py)
 # Image classification with synthetic gradient in Pytorch
-I implement the ***[Decoupled Neural Interfaces using Synthetic Gradients](http://arxiv.org/abs/1608.05343)*** in **pytorch**. The paper use synthetic gradient to decouple the layers in the network. This is pretty interesting since we won't suffer from **update lock** anymore. I test my model in mnist and archieve similar result as the paper claimed.
+I implement the ***[Decoupled Neural Interfaces using Synthetic Gradients](http://arxiv.org/abs/1608.05343)*** in **pytorch**. The paper uses synthetic gradient to decouple the layers among the network, which is pretty interesting since we won't suffer from **update lock** anymore. I test my model in mnist and **almost** achieve result as the paper claimed.
 
 ## Requirement
 - pytorch
@@ -30,4 +31,6 @@ python main.py
 
 ## Reference
 - Deepmind's [post](https://deepmind.com/blog/decoupled-neural-networks-using-synthetic-gradients/) on Decoupled Neural Interfaces Using Synthetic Gradients
+- [Decoupled Neural Interfaces using Synthetic Gradients](https://arxiv.org/abs/1608.05343)
+- [Understanding Synthetic Gradients and Decoupled Neural Interfaces](https://arxiv.org/abs/1703.00522)
 
