@@ -21,6 +21,10 @@ The neuron in each layer will automatically produces an error signal(***δa_head
 |----|----|
 | ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/classify_loss.png?raw=true) | ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/grad_loss.png?raw=true) |
 
+| cDNI classify loss | cDNI gradient loss(log level) |
+|----|----|
+| ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/cDNI_classify_loss.png?raw=true) | ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/cDNI_grad_loss.png?raw=true) |
+
 ## Usage 
 Right now I just implement the FCN version, which is set as the default network structure.
 

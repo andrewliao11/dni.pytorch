@@ -15,8 +15,8 @@ num_epochs = 300
 batch_size = 256
 dni_hidden_size = 1024
 learning_rate = 3e-5
-model_name = 'DNI'
-conditioned_DNI = False
+model_name = 'cDNI'
+conditioned_DNI = True
 
 # MNIST Dataset 
 train_dataset = dsets.MNIST(root='../data', 
@@ -59,7 +59,6 @@ class dni_linear(nn.Module):
 
     def forward(self, x, y):
         if self.conditioned:
-            assert y is not None
             x = torch.cat((x, y.unsqueeze(1).float()), 1)
         out = self.layer1(x)
         out = self.layer2(out)
@@ -101,7 +100,7 @@ class Net(nn.Module):
         fc1 = self.fc1(x)
         relu1 = self.relu(fc1)
         fc2 = self.fc2(relu1)
-        
+
         if y is not None:
             grad_fc1 = self._fc1(fc1, y)
             grad_fc2 = self._fc2(fc2, y)
@@ -144,7 +143,7 @@ for epoch in range(num_epochs):
         # Fc1        
         # Forward + Backward + Optimize
         optimizer_fc1.zero_grad()
-        out, grad1 = net.forward_fc1(images)
+        out, grad1 = net.forward_fc1(images, labels)
         out.backward(grad1.detach().data)
         optimizer_fc1.step()
 
@@ -152,7 +151,7 @@ for epoch in range(num_epochs):
         # Forward + Backward + Optimize
         out = net.relu(out.detach())
         optimizer_fc2.zero_grad()
-        out, grad2 = net.forward_fc2(out)
+        out, grad2 = net.forward_fc2(out, labels)
         out.backward(grad2.detach().data)
         optimizer_fc2.step()
 
