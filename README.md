@@ -34,6 +34,12 @@ Run network with synthetic gradient:
 python main_dni.py
 ```
 
+Run network with conditioned synthetic gradient:
+
+```python
+python main_cdni.py
+```
+
 Run vanilla network, from [here](https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/03%20-%20Feedforward%20Neural%20Network/main-gpu.py)
 ```python
 python main.py
