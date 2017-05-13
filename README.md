@@ -44,31 +44,31 @@ Right now I just implement the FCN, CNN versions, which are set as the default n
 Run network with synthetic gradient:
 
 ```python
-python main_dni.py
+python mlp_dni.py
 ```
 
 or 
 
 ```python
-python main_cnn_dni.py
+python cnn_dni.py
 ```
 
 
 Run network with conditioned synthetic gradient:
 
 ```python
-python main_cdni.py
+python mlp_cdni.py
 ```
 
 Run vanilla network, from pytorch-tutorial
 ```python
-python main.py
+python mlp.py
 ```
 
 or 
 
 ```python
-python main_cnn.py
+python cnn.py
 ```
 
 ## Reference
