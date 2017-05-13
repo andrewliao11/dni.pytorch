@@ -45,19 +45,19 @@ Right now I just implement the FCN, CNN versions, which are set as the default n
 
 ### Run network with synthetic gradient:
 
-```python
+```
 python main.py --model_type mlp
 ```
 
 or 
 
-```python
+```
 python main.py --model_type cnn
 ```
 
 ### Run network with conditioned synthetic gradient:
 
-```python
+```
 python main.py --model_type mlp --conditioned True
 ```
 
