@@ -1,7 +1,7 @@
 **disclaimer**: this code is modified from [pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
 
 # Image classification with synthetic gradient in Pytorch
-I implement the ***[Decoupled Neural Interfaces using Synthetic Gradients](http://arxiv.org/abs/1608.05343)*** in **pytorch**. The paper uses synthetic gradient to decouple the layers among the network, which is pretty interesting since we won't suffer from **update lock** anymore. I test my model in mnist and **almost** achieve result as the paper claimed.
+I implement the ***[Decoupled Neural Interfaces using Synthetic Gradients](http://arxiv.org/abs/1608.05343)*** in **pytorch**. The paper uses synthetic gradient to decouple the layers among the network, which is pretty interesting since we won't suffer from **update lock** anymore. I test my model in mnist and **almost** the same performance, compared to the model updated with backpropagation.
 
 ## Requirement
 - pytorch
@@ -20,7 +20,7 @@ The neuron in each layer will automatically produces an error signal(***δa_head
 
 ### Feed-Forward Network
 
-Achieve accuracy=**92%** 
+Achieve accuracy=**96%** (compared to the original model, which with accuracy=97%)
 
 | classify loss | gradient loss(log level) |
 |----|----|
@@ -32,7 +32,7 @@ Achieve accuracy=**92%**
 
 ### Convolutional Neural Network
 
-Achieve accuracy=**95%**
+Achieve accuracy=**95%**, (compared to the original model, which with accuracy=98%)
 
 | classify loss | gradient loss(log level) |
 |----|----|
