@@ -41,7 +41,7 @@ Achieve accuracy=**95%**, (compared to the original model, which with accuracy=9
 ## Usage 
 Right now I just implement the FCN, CNN versions, which are set as the default network structure.
 
-Run network with synthetic gradient:
+### Run network with synthetic gradient:
 
 ```python
 python mlp_dni.py
@@ -53,14 +53,13 @@ or
 python cnn_dni.py
 ```
 
-
-Run network with conditioned synthetic gradient:
+### Run network with conditioned synthetic gradient:
 
 ```python
 python mlp_cdni.py
 ```
 
-Run vanilla network, from pytorch-tutorial
+### Run vanilla network, from pytorch-tutorial
 ```python
 python mlp.py
 ```
