@@ -46,19 +46,19 @@ Right now I just implement the FCN, CNN versions, which are set as the default n
 ### Run network with synthetic gradient:
 
 ```python
-python mlp_dni.py
+python main.py --model_type mlp
 ```
 
 or 
 
 ```python
-python cnn_dni.py
+python main.py --model_type cnn
 ```
 
 ### Run network with conditioned synthetic gradient:
 
 ```python
-python mlp_cdni.py
+python main.py --model_type mlp --conditioned True
 ```
 
 ### Run vanilla network, from pytorch-tutorial
