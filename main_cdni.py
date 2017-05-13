@@ -94,6 +94,7 @@ syntheticCriterion = nn.MSELoss()
 
 def test_model(epoch):
     # Test the Model
+    net.eval()
     correct = 0
     total = 0
     for images, labels in test_loader:
@@ -106,6 +107,7 @@ def test_model(epoch):
     print('Epoch %d: Accuracy of the network on the 10000 test images: %d %%' % (epoch, perf))
     return perf
 
+best_perf = 0.
 stats = dict(grad_loss=[], classify_loss=[])
 # Train the Model
 for epoch in range(num_epochs):
@@ -154,6 +156,9 @@ for epoch in range(num_epochs):
 
     if (epoch+1) % 10 == 0:
         perf = test_model(epoch+1)    
+        if perf > best_perf:
+            torch.save(net.state_dict(), model_name+'_model_best.pkl')
+        net.train()
 
 # Save the Model ans Stats
 pkl.dump(stats, open(model_name+'_stats.pkl', 'w'))

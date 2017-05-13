@@ -8,7 +8,7 @@ from dni import *
 from plot import *
 
 # Hyper Parameters
-num_epochs = 50
+num_epochs = 300
 batch_size = 100
 learning_rate = 0.001
 model_name = 'CNN'
@@ -126,6 +126,7 @@ def test_model(epoch):
     return perf
 
 stats = dict(grad_loss=[], classify_loss=[])
+best_perf = 0.
 # Train the Model
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
@@ -186,6 +187,8 @@ for epoch in range(num_epochs):
 
     if (epoch+1) % 10 == 0:
         perf = test_model(epoch+1)
+        if perf > best_perf:
+            torch.save(net.state_dict(), model_name+'_cnn_best.pkl')
         net.train()
 
 # Save the Model ans Stats
