@@ -1,4 +1,5 @@
-**disclaimer**: this code is modified from [pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/03%20-%20Feedforward%20Neural%20Network/main-gpu.py)
+**disclaimer**: this code is modified from [pytorch-tutorial](https://github.com/yunjey/pytorch-tutorial)
+
 # Image classification with synthetic gradient in Pytorch
 I implement the ***[Decoupled Neural Interfaces using Synthetic Gradients](http://arxiv.org/abs/1608.05343)*** in **pytorch**. The paper uses synthetic gradient to decouple the layers among the network, which is pretty interesting since we won't suffer from **update lock** anymore. I test my model in mnist and **almost** achieve result as the paper claimed.
 
@@ -17,6 +18,10 @@ The neuron in each layer will automatically produces an error signal(***δa_head
 
 ## Result
 
+### Feed-Forward Network
+
+Achieve accuracy=**92%** 
+
 | classify loss | gradient loss(log level) |
 |----|----|
 | ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/classify_loss.png?raw=true) | ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/grad_loss.png?raw=true) |
@@ -25,8 +30,16 @@ The neuron in each layer will automatically produces an error signal(***δa_head
 |----|----|
 | ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/cDNI_classify_loss.png?raw=true) | ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/cDNI_grad_loss.png?raw=true) |
 
+### Convolutional Neural Network
+
+Achieve accuracy=**95%**
+
+| classify loss | gradient loss(log level) |
+|----|----|
+| ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/cnn_classify_loss.png?raw=true) | ![](https://github.com/andrewliao11/DNI-pytorch/blob/master/misc/cnn_grad_loss.png?raw=true) |
+
 ## Usage 
-Right now I just implement the FCN version, which is set as the default network structure.
+Right now I just implement the FCN, CNN versions, which are set as the default network structure.
 
 Run network with synthetic gradient:
 
@@ -34,15 +47,28 @@ Run network with synthetic gradient:
 python main_dni.py
 ```
 
+or 
+
+```python
+python main_cnn_dni.py
+```
+
+
 Run network with conditioned synthetic gradient:
 
 ```python
 python main_cdni.py
 ```
 
-Run vanilla network, from [here](https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/03%20-%20Feedforward%20Neural%20Network/main-gpu.py)
+Run vanilla network, from pytorch-tutorial
 ```python
 python main.py
+```
+
+or 
+
+```python
+python main_cnn.py
 ```
 
 ## Reference
