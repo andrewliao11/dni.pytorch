@@ -5,8 +5,10 @@ I implement the ***[Decoupled Neural Interfaces using Synthetic Gradients](http:
 
 ## Requirement
 - pytorch
-- python 2.7
+- python 3.5
 - torchvision
+- seaborn (optional)
+- matplotlib (optional)
 
 ## TODO
 - use multi-threading on gpu to analyze the speed
