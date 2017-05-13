@@ -192,6 +192,6 @@ for epoch in range(num_epochs):
         net.train()
 
 # Save the Model ans Stats
-pkl.dump(stats, open(model_name+'_stats.pkl', 'w'))
+pkl.dump(stats, open(model_name+'_stats.pkl', 'wb'))
 torch.save(net.state_dict(), model_name+'_cnn.pkl')
 plot(stats, name=model_name)

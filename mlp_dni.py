@@ -6,13 +6,12 @@ import pickle as pkl
 from torch.autograd import Variable
 from plot import *
 from dni import *
-import ipdb
 
 # Hyper Parameters 
 input_size = 784
 hidden_size = 256
 num_classes = 10
-num_epochs = 300
+num_epochs = 10
 batch_size = 100
 learning_rate = 3e-5
 model_name = 'DNI'
@@ -81,6 +80,7 @@ class Net(nn.Module):
             return fc1, fc2
     
 net = Net(input_size, hidden_size, num_classes)
+net.share_memory()
 net.cuda()   
 
 # Param, Optimizer and Criterion
@@ -160,6 +160,6 @@ for epoch in range(num_epochs):
         net.train()
 
 # Save the Model ans Stats
-pkl.dump(stats, open(model_name+'_stats.pkl', 'w'))
+pkl.dump(stats, open(model_name+'_stats.pkl', 'wb'))
 torch.save(net.state_dict(), model_name+'_model.pkl')
 plot(stats, name=model_name)

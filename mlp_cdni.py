@@ -6,7 +6,6 @@ import pickle as pkl
 from torch.autograd import Variable
 from plot import *
 from dni import *
-import ipdb
 
 # Hyper Parameters 
 input_size = 784
@@ -161,6 +160,6 @@ for epoch in range(num_epochs):
         net.train()
 
 # Save the Model ans Stats
-pkl.dump(stats, open(model_name+'_stats.pkl', 'w'))
+pkl.dump(stats, open(model_name+'_stats.pkl', 'wb'))
 torch.save(net.state_dict(), model_name+'_model.pkl')
 plot(stats, name=model_name)
