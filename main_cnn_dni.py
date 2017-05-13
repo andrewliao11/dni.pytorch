@@ -3,14 +3,15 @@ import torch.nn as nn
 import torchvision.datasets as dsets
 import torchvision.transforms as transforms
 from torch.autograd import Variable
+import pickle as pkl
 from dni import *
 from plot import *
 
 # Hyper Parameters
 num_epochs = 50
-batch_size = 256
+batch_size = 100
 learning_rate = 0.001
-name = 'CNN'
+model_name = 'CNN'
 conditioned_DNI = False
 
 # MNIST Dataset
@@ -124,6 +125,7 @@ def test_model(epoch):
     print('Epoch %d: Accuracy of the network on the 10000 test images: %d %%' % (epoch, perf))
     return perf
 
+stats = dict(grad_loss=[], classify_loss=[])
 # Train the Model
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
@@ -175,6 +177,8 @@ for epoch in range(num_epochs):
         grad_loss.backward()
         grad_optimizer.step()
 
+        stats['grad_loss'].append(grad_loss.data[0])
+        stats['classify_loss'].append(loss.data[0])
         if (i+1) % 100 == 0:
             print ('Epoch [%d/%d], Step [%d/%d], Loss: %.4f, Grad Loss: %.4f'
                    %(epoch+1, num_epochs, i+1, len(train_dataset)//batch_size, loss.data[0], grad_loss.data[0]))
@@ -185,6 +189,6 @@ for epoch in range(num_epochs):
         net.train()
 
 # Save the Model ans Stats
-pkl.dump(stats, open(name+'_stats.pkl', 'w'))
-torch.save(net.state_dict(), name+'_cnn.pkl')
+pkl.dump(stats, open(model_name+'_stats.pkl', 'w'))
+torch.save(net.state_dict(), model_name+'_cnn.pkl')
 plot(stats, name=model_name)

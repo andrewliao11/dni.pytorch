@@ -5,6 +5,7 @@ import torchvision.transforms as transforms
 import pickle as pkl
 from torch.autograd import Variable
 from plot import *
+from dni import *
 import ipdb
 
 # Hyper Parameters 
@@ -12,8 +13,7 @@ input_size = 784
 hidden_size = 256
 num_classes = 10
 num_epochs = 300
-batch_size = 256
-dni_hidden_size = 1024
+batch_size = 100
 learning_rate = 3e-5
 model_name = 'DNI'
 conditioned_DNI = False
@@ -36,35 +36,6 @@ train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
 test_loader = torch.utils.data.DataLoader(dataset=test_dataset, 
                                           batch_size=batch_size, 
                                           shuffle=False)
-
-class dni_linear(nn.Module):
-    def __init__(self, input_dims, conditioned=False):
-        super(dni_linear, self).__init__()
-        self.conditioned = conditioned
-        if self.conditioned:
-            dni_input_dims = input_dims+1
-        else:
-            dni_input_dims = input_dims
-        self.layer1 = nn.Sequential(
-                      nn.Linear(dni_input_dims, dni_hidden_size), 
-                      nn.BatchNorm1d(dni_hidden_size),
-                      nn.ReLU()
-                      )
-        self.layer2 = nn.Sequential(
-                      nn.Linear(dni_hidden_size, dni_hidden_size),
-                      nn.BatchNorm1d(dni_hidden_size),
-                      nn.ReLU()
-                      )
-        self.layer3 = nn.Linear(dni_hidden_size, input_dims)
-
-    def forward(self, x, y):
-        if self.conditioned:
-            assert y is not None
-            x = torch.cat((x, y.unsqueeze(1).float()), 1)
-        out = self.layer1(x)
-        out = self.layer2(out)
-        out = self.layer3(out)
-        return out
 
 def save_grad(name):
     def hook(grad):
@@ -122,6 +93,7 @@ syntheticCriterion = nn.MSELoss()
 
 def test_model(epoch):
     # Test the Model
+    net.eval()
     correct = 0
     total = 0
     for images, labels in test_loader:
@@ -182,8 +154,9 @@ for epoch in range(num_epochs):
 
     if (epoch+1) % 10 == 0:
         perf = test_model(epoch+1)    
+        net.train()
 
 # Save the Model ans Stats
-pkl.dump(stats, open(name+'_stats.pkl', 'w'))
-torch.save(net.state_dict(), name+'_model.pkl')
+pkl.dump(stats, open(model_name+'_stats.pkl', 'w'))
+torch.save(net.state_dict(), model_name+'_model.pkl')
 plot(stats, name=model_name)
