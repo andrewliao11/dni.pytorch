@@ -34,7 +34,7 @@ Achieve accuracy=**96%** (compared to the original model, which with accuracy=97
 
 ### Convolutional Neural Network
 
-Achieve accuracy=**95%**, (compared to the original model, which with accuracy=98%)
+Achieve accuracy=**96%**, (compared to the original model, which with accuracy=98%)
 
 | classify loss | gradient loss(log level) |
 |----|----|

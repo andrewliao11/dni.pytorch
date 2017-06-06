@@ -31,8 +31,8 @@ class mnist():
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='DNI')
-    parser.add_argument('--num_epochs', type=int, default=100)
-    parser.add_argument('--model_type', choices=['mlp', 'cnn'], default='mlp',
+    parser.add_argument('--num_epochs', type=int, default=300)
+    parser.add_argument('--model_type', choices=['mlp', 'cnn'], default='cnn',
                     help='currently support mlp and cnn')
     parser.add_argument('--batch_size', type=int, default=100)
     parser.add_argument('--model_name', type=str, default='mlp_dni',

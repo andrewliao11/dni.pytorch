@@ -5,6 +5,7 @@ from dni import *
 class cnn(nn.Module):
     def __init__(self, conditioned_DNI, num_classes):
         super(cnn, self).__init__()
+       
         self.layer1 = nn.Sequential(
             nn.Conv2d(1, 16, kernel_size=5, padding=2),
             nn.BatchNorm2d(16),
@@ -18,9 +19,9 @@ class cnn(nn.Module):
         self.fc = nn.Linear(7*7*32, num_classes)
 
         # DNI module
-        self._layer1 = dni_Conv2d(16, conditioned=conditioned_DNI)
-        self._layer2 = dni_Conv2d(32, conditioned=conditioned_DNI)
-        self._fc = dni_linear(num_classes, conditioned=conditioned_DNI)
+        self._layer1 = dni_Conv2d(16, (14, 14), num_classes, conditioned=conditioned_DNI)
+        self._layer2 = dni_Conv2d(32, (7, 7), num_classes, conditioned=conditioned_DNI)
+        self._fc = dni_linear(num_classes, num_classes, conditioned=conditioned_DNI)
 
         self.cnn = nn.Sequential(
                    self.layer1, 
@@ -85,8 +86,8 @@ class mlp(nn.Module):
         self.relu = nn.ReLU()
         self.fc2 = nn.Linear(hidden_size, num_classes)  
         # dni network
-        self._fc1 = dni_linear(hidden_size, conditioned=conditioned_DNI)
-        self._fc2 = dni_linear(num_classes, conditioned=conditioned_DNI)
+        self._fc1 = dni_linear(hidden_size, num_classes, conditioned=conditioned_DNI)
+        self._fc2 = dni_linear(num_classes, num_classes, conditioned=conditioned_DNI)
 
         self.mlp = nn.Sequential(self.fc1, self.relu, self.fc2)
         self.dni = nn.Sequential(self._fc1, self._fc2)
