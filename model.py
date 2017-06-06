@@ -3,11 +3,12 @@ from dni import *
 
 # CNN Model (2 conv layer)
 class cnn(nn.Module):
-    def __init__(self, conditioned_DNI, num_classes):
+    def __init__(self, in_channel, conditioned_DNI, num_classes):
         super(cnn, self).__init__()
-       
+
+               
         self.layer1 = nn.Sequential(
-            nn.Conv2d(1, 16, kernel_size=5, padding=2),
+            nn.Conv2d(in_channel, 16, kernel_size=5, padding=2),
             nn.BatchNorm2d(16),
             nn.ReLU(),
             nn.MaxPool2d(2))

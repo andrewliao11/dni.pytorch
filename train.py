@@ -16,7 +16,7 @@ class classifier():
         if args.model_type == 'mlp':
             self.net = mlp(args.conditioned, data.input_dims, data.num_classes, hidden_size=256)
         elif args.model_type == 'cnn':
-            self.net = cnn(args.conditioned, data.num_classes)
+            self.net = cnn(data.in_channel, args.conditioned, data.num_classes)
 
         if args.use_gpu:
             self.net.cuda()
@@ -26,11 +26,10 @@ class classifier():
         self.plot = args.plot
         self.num_epochs = args.num_epochs
         self.model_name = args.model_name
-        if args.conditioned:
-            self.model_name += '.conditioned'
         self.conditioned = args.conditioned
         self.best_perf = 0.
         self.stats = dict(grad_loss=[], classify_loss=[])
+        print "[%] model name will be", self.model_name
 
     def optimizer_module(self, optimizer, forward, out, label_onehot=None):
         optimizer.zero_grad()
